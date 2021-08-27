@@ -34,9 +34,7 @@ navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then((stream)
         offset = parseInt(document.getElementById("offset").value);
         document.getElementById("offset_value").innerText = offset;
         average = 20*Math.log10(values/data.length) + offset;
-        // var average = Math.sqrt(values/data.length);
         localDbValues.push(average);
-        console.log(average);
     };
 })
 
@@ -46,7 +44,7 @@ var updateDb = function() {
 
     const db = document.getElementById("db");
     var volume = Math.round(localDbValues.reduce((a,b) => a+b) / localDbValues.length);
-    //volume = Math.round(Math.max.apply(null, localDbValues));
+    //var volume = Math.round(Math.max.apply(null, localDbValues));
     if (!isFinite(volume)) volume = 0;  // we don't want/need negative decibels in that case
     db.innerText = volume;
     localDbValues = []; // clear previous values
