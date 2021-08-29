@@ -10,7 +10,7 @@ Values are not precise, but mainly represent differencies in noise levels in a s
 In this project I tried to get the noise level for different frequencies, take the average out of them, and then again take the average of all such values within the time intervall of a specific refresh_rate (in msec). Afterwards I applied the formula $20*log10(noiseValue)$ to get a number indication near to Decibel, and added the offset value.  
 
 ## Offset & Refresh Rate
-To cope with the environmental noises and different microphone sensitivities, I have set an adjustable offset value, which just increases or increases the dBs. As default, the value of 30 has been chosen, as it yields the best results (at least for me).  
+To cope with the environmental noises and different microphone sensitivities, I have set an adjustable offset value, which just increases or decreases the dBs. As default, the value of 30 has been chosen, as it yields the best results (at least for me).  
 Furthermore, the refresh rate for the dBs is adjustable too (default 1 sec).  
 
 ## Technnical Details
