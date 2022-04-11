@@ -88,7 +88,7 @@ xhttp.onreadystatechange = function() {
     let repos = JSON.parse(this.responseText);
     repos.forEach((repo)=>{
         if (repo.name == "db-meter") {
-            date = new Date(repo.updated_at);
+            date = new Date(repo.pushed_at);
             document.getElementById("date").innerText = date.toLocaleDateString();
         }
     });
