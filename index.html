@@ -10,20 +10,22 @@
 </head>
 <body>
     <h1>Decibel Meter</h1>
-    <main>
-        <h2><span id="db">-</span> dB</h2>
-        <div id='visuals'></div>
-    </main>
-    <div class="inputs">
-        <div class="input">
-            <label for="offset">Offset value: <span id='offset_value'>-</span> dB</label>
-            <br>
-            <input type="range" min="-30" max="70" value="30" class="slider" id="offset">
-        </div>
-        <div class="input">
-            <label for="refresh_rate">Refresh every: <span id='refresh_value'>-</span> ms</label>
-            <br>
-            <input type="range" min="100" max="2000" value="500" class="slider" id="refresh_rate">
+    <div class="main-inputs">
+        <main>
+            <h2><span id="db">-</span> dB</h2>
+            <div id='visuals'></div>
+        </main>
+        <div class="inputs">
+            <div class="input">
+                <label for="offset">Offset value: <span id='offset_value'>-</span> dB</label>
+                <br>
+                <input type="range" min="-30" max="30" value="0" class="slider" id="offset">
+            </div>
+            <div class="input">
+                <label for="refresh_rate">Refresh every: <span id='refresh_value'>-</span> ms</label>
+                <br>
+                <input type="range" min="100" max="2000" value="500" class="slider" id="refresh_rate">
+            </div>
         </div>
     </div>
     <footer>

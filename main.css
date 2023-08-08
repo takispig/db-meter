@@ -2,14 +2,12 @@ body {
     height: 100vh; 
     margin: 0;
     display: flex; 
-    flex-direction: column; 
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 main {
     text-align: center;
-    position: relative;
-    top: 25%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    flex-grow: 1;
 }
 footer {
     background-color: rgb(63, 63, 63);
@@ -79,19 +77,22 @@ p {
     padding-inline: 20%;
 }
 .inputs {
-    padding: 10px;
+    padding: 50px 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 .input {
     text-align: center;
-    float: left;
-    left: 50%;
-    width: 50%;
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
     .col {
         width: 100%;
     }
     .input {
+        text-align: center;
         width: 100%;
     }
   }

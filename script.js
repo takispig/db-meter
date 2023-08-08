@@ -1,10 +1,9 @@
-var localDbValues = [];     // array to store db values for each loop withing the refresh_rate
-var refresh_rate = 500;
-var color = 'green';
-var stream;
-var offset = 30;
-var average = 0;
-var date;
+let localDbValues = [];     // array to store db values for each loop withing the refresh_rate
+let refresh_rate = 500;
+let color = 'green';
+let stream;
+let offset = 0;
+let date;
 
 navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then((stream) => {
     
@@ -22,28 +21,30 @@ navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then((stream)
 
     processor.onaudioprocess = () => {
 
-        var data = new Uint8Array(analyser.frequencyBinCount);
+        let data = new Uint8Array(analyser.frequencyBinCount);
         analyser.getByteFrequencyData(data);
-        var values = 0;
+        let rms = 0;
 
         for (var i = 0; i < data.length; i++) {
-            //if (data[i]>130) data[i]=130;
-            values += data[i];
+            if (data[i]>120) data[i] = 120
+            rms += data[i]*data[i]
         }
+        rms = Math.sqrt(rms / data.length);
+        console.log("RMS: " + rms)
 
         offset = parseInt(document.getElementById("offset").value);
         document.getElementById("offset_value").innerText = offset;
-        average = 20*Math.log10(values/data.length) + offset;
-        localDbValues.push(average);
+        value = rms + offset;
+        localDbValues.push(value);
     };
 })
 
 // update the volume every refresh_rate m.seconds
-var updateDb = function() {
+let updateDb = function() {
     window.clearInterval(interval);
 
     const db = document.getElementById("db");
-    var volume = Math.round(localDbValues.reduce((a,b) => a+b) / localDbValues.length);
+    let volume = Math.round(localDbValues.reduce((a,b) => a+b) / localDbValues.length);
     //var volume = Math.round(Math.max.apply(null, localDbValues));
     if (!isFinite(volume)) volume = 0;  // we don't want/need negative decibels in that case
     db.innerText = volume;
@@ -53,7 +54,7 @@ var updateDb = function() {
     changeUpdateRate();
     interval = window.setInterval(updateDb, refresh_rate);
 }
-var interval = window.setInterval(updateDb, refresh_rate);
+let interval = window.setInterval(updateDb, refresh_rate);
 
 
 // change the visualization colors according to the dbValue
@@ -75,14 +76,14 @@ function changeColor(decibels) {
 function changeUpdateRate() {
     refresh_rate = Number(document.getElementById("refresh_rate").value);
     document.getElementById("refresh_value").innerText = refresh_rate;
-    intervalId = window.setInterval(function() {
+    window.setInterval(function() {
         updateDb;
     }, refresh_rate);
 }
 
 
 // update the date of last project's version
-var xhttp = new XMLHttpRequest();
+let xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     let repos = JSON.parse(this.responseText);
